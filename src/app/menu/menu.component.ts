@@ -11,7 +11,7 @@ export class MenuComponent implements OnInit {
   modal     : boolean = false;
   titulo    : string = "";
   contenido : string = "";
-  orden   : boolean = false;
+  orden     : boolean = false;
 
   constructor( private notasService: ServicioService ) { }
 

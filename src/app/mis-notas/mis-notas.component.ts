@@ -10,11 +10,11 @@ import { SwalService } from '../services/swal.service';
 })
 export class MisNotasComponent implements OnInit {
 
-  notas      : Nota[] = [];
-  favoritos  : boolean = true;
-  modal     !: boolean;
-  nota       : any[] = [];
-  iconoFavorito : string[] = [];
+  notas          : Nota[] = [];
+  favoritos      : boolean = true;
+  modal         !: boolean;
+  nota          !: Nota;
+  iconoFavorito  : string[] = [];
 
   constructor( private notasService: ServicioService,
                private swalService: SwalService) { }
@@ -35,9 +35,12 @@ export class MisNotasComponent implements OnInit {
   }
 
   editarNota(index: number) {
-    this.nota.push(this.notasService.editarNota(index));
+    //this.nota = this.notas[index];
+    //this.notasService.nota = this.nota;
+    this.notasService.editarNota(index).subscribe( res => {
+      this.nota = res;
+    });
     this.modal = true;
-    console.log(this.nota[0]);
   }
 
   cerrarModal($event: boolean) {

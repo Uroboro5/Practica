@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Nota } from '../interfaces/nota';
 import { ServicioService } from '../services/servicio.service';
 
@@ -9,23 +9,34 @@ import { ServicioService } from '../services/servicio.service';
 })
 export class NuevaNotaComponent implements OnInit {
   @Output() modalEvent = new EventEmitter<boolean>();
-  @Output() editarNota = new EventEmitter<Nota>();
+  @Input() inputNota !: Nota;
+ // @Output() editarNota = new EventEmitter<Nota>();
 
-
-
-  nuevaNota     !: boolean;
-  titulo        : string  = "titi";
-  contenido     : string = "cocmom";
+  nuevaNota    !: boolean;
+  titulo        : string  = "";
+  contenido     : string = "";
   favorito      : boolean = false;
-  iconoFavorito : any = "pi-thumbs-down";
+  iconoFavorito : string = "pi-thumbs-down";
+  nota          : Nota = {
+    titulo: '',
+    contenido: '',
+    fecha: new Date,
+    favorito: false
+  }
 
   constructor( private notasService: ServicioService) { }
 
   ngOnInit(): void {
     this.nuevaNota = this.notasService.nuevaNota;
-    this.editarNota.subscribe((nota)=>{
-      this.titulo =  nota.titulo;
-    })
+    
+    this.nota = this.inputNota;
+    console.log(this.nota);
+    
+    /* this.editarNota.subscribe((nota)=>{
+      console.log(nota);
+      
+      //this.titulo =  nota.titulo;
+    }) */
   }
 
   guardarNota(){
@@ -39,6 +50,13 @@ export class NuevaNotaComponent implements OnInit {
   agregarFavorito() {
     this.favorito ? this.favorito = false: this.favorito = true;
     this.favorito ? this.iconoFavorito = "pi-thumbs-up" : this.iconoFavorito = "pi-thumbs-down";
+  }
+
+  rellenarDatos() {
+    console.log(this.nota);
+    
+    this.titulo = this.nota.titulo;
+    this.contenido = this.nota.contenido;
   }
 
 }

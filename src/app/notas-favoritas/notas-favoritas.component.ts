@@ -11,7 +11,7 @@ import { SwalService } from '../services/swal.service';
 export class NotasFavoritasComponent implements OnInit {
   notas         : Nota[] = [];
   favoritos     : boolean = true;
-  modal         !: boolean;
+  modal        !: boolean;
   nota          : any[] = [];
   iconoFavorito : string[] = [];
 

@@ -22,7 +22,7 @@
 
 <p-dialog header="Editar Nota" [(visible)]="modal" [modal]="true" [style]="{width: '30vw'}"
 [draggable]="false" [resizable]="false">
-<app-nueva-nota (modalEvent)="cerrarModal($event)">
+<app-nueva-nota  [inputNota]="nota" (modalEvent)="cerrarModal($event)">
 
 </app-nueva-nota>
 </p-dialog>

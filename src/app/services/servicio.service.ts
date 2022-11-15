@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
 import { Nota } from '../interfaces/nota';
+import { BehaviorSubject } from 'rxjs';
 
 //TODO: CREAR INTERFACE DE NOTAS
 @Injectable({
@@ -20,7 +22,10 @@ export class ServicioService {
     fecha: new Date,
     favorito: false
   };
+  private messageSource = new BehaviorSubject<string>("");
+  changeVar = this.messageSource.asObservable();
   constructor() { 
+
     this.notas = [
       {
         "titulo":"Primer Titulo",
@@ -41,6 +46,10 @@ export class ServicioService {
         "favorito": true
       }
     ]
+  }
+
+  changeMyVar (message: string) {
+    this.messageSource.next(message)
   }
 
   guardarNota(titulo: string, contenido: string, favorito: boolean){
@@ -79,10 +88,9 @@ export class ServicioService {
 
   editarNota( i: number ) {
     this.nota = this.notas[i];
-  }
-
-  notaSelec() {
-    return this.nota;
+    console.log(this.nota);
+    
+    return of(this.nota);
   }
 
   ordenarNotas(orden: boolean) {
