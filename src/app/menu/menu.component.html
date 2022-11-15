@@ -1,0 +1,19 @@
+<p-toolbar>
+    <div class="p-toolbar-group-left">
+        <p-button routerLink="notas" label="Mis Notas" class="mr-2" styleClass="p-button-warning"></p-button>
+        <p-button (onClick)="filtrarNotas()" routerLink="favoritos" label="Notas Favoritas" class="mr-5" styleClass="p-button-help"></p-button>
+        
+        <h5>Fecha</h5>  <p-inputSwitch [(ngModel)]="orden" (onChange)="ordenarNotas()"></p-inputSwitch> <h5>ABC</h5>
+    </div>
+    
+    <div class="p-toolbar-group-right">
+        <p-button (click)="mostrarNuevaNota()" label="Nueva nota" icon="pi pi-plus" class="mr-2" styleClass="p-button-success" ></p-button>
+    </div>
+</p-toolbar>
+
+<p-dialog header="Nueva Nota" [(visible)]="modal" [modal]="true" [style]="{width: '30vw'}"
+    [draggable]="false" [resizable]="false">
+    <app-nueva-nota (modalEvent)="cerrarModal($event)">
+
+    </app-nueva-nota>
+</p-dialog>

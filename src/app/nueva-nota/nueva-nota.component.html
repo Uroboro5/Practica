@@ -1,0 +1,10 @@
+<span class="p-float-label mt-2">
+    <input id="float-input" type="text" pInputText [(ngModel)]="titulo"> 
+    <label for="float-input">Titulo </label>
+</span>
+<span class="p-float-label mt-2">
+    <textarea id="float-input" rows="5" cols="30" pInputTextarea [(ngModel)]="contenido"></textarea>
+    <label for="float-input">Contenido</label>
+</span>
+<button (click)="guardarNota()" pButton pRipple type="button" label="Guardar" class="p-button-rounded p-button-success mt-2 ml-8"></button>
+<button (click)="agregarFavorito()" pButton pRipple type="button" icon="pi {{iconoFavorito}}" class="p-button-rounded p-button-primary ml-8"></button>

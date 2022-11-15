@@ -1,0 +1,28 @@
+<div class="grid">
+    <div class="col-4"*ngFor="let nota of notas; let i = index">
+        <p-card>
+            <ng-template pTemplate="header">
+                <div style="zoom: 120%; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; text-align: center;">
+                    {{nota.titulo}}
+                </div>
+            </ng-template>
+                {{nota.contenido}}
+            <ng-template pTemplate="footer">
+                <button (click)="agregarFavoritos(i)" pButton pRipple type="button" icon="pi {{iconoFavorito[i]}}" class="p-button-rounded p-button-primary mr-8"></button>
+                <button (click)="editarNota(i)" pButton pRipple label="Editar" class="p-button-rounded p-button-warning ml-4" icon="pi pi-credit-card"></button>
+                <button (click)="borrarNota(i)" pButton pRipple label="Eliminar" class="p-button-rounded p-button-danger ml-2" icon="pi pi-trash"></button>
+                <hr>
+                <div style="text-align: end;">
+                    {{nota.fecha | fecha}}
+                </div>
+            </ng-template>
+        </p-card>
+    </div>
+</div>
+
+<p-dialog header="Editar Nota" [(visible)]="modal" [modal]="true" [style]="{width: '30vw'}"
+[draggable]="false" [resizable]="false">
+<app-nueva-nota (modalEvent)="cerrarModal($event)">
+
+</app-nueva-nota>
+</p-dialog>
