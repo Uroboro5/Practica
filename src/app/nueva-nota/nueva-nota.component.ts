@@ -29,9 +29,7 @@ export class NuevaNotaComponent implements OnInit {
   ngOnInit(): void {
     this.nuevaNota = this.notasService.nuevaNota;
     
-    this.nota = this.inputNota;
-    console.log(this.nota);
-    
+    this.nota = this.inputNota;    
     /* this.editarNota.subscribe((nota)=>{
       console.log(nota);
       

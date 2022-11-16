@@ -30,15 +30,17 @@ export class NotasFavoritasComponent implements OnInit {
   }
 
   agregarFavoritos(index: number) {
+    this.notasService.quitarFavoritas(index);
+    
     /* this.notasService.notas[index].favorito = !this.notasService.notas[index].favorito;
     this.notasService.filtroFavoritos();
     this.notasService.botonFavoritos(); */
   }
 
   editarNota(index: number) {
-    this.nota.push(this.notasService.editarNota(index));
+    /* this.nota.push(this.notasService.editarNota(index));
     this.modal = true;
-    console.log(this.nota[0]);
+    console.log(this.nota[0]); */
   }
 
   cerrarModal($event: boolean) {

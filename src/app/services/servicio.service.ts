@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Route, Router } from "@angular/router";
 import { of } from 'rxjs';
 import { Nota } from '../interfaces/nota';
 import { BehaviorSubject } from 'rxjs';
@@ -24,7 +25,7 @@ export class ServicioService {
   };
   private messageSource = new BehaviorSubject<string>("");
   changeVar = this.messageSource.asObservable();
-  constructor() { 
+  constructor( private router: Router) { 
 
     this.notas = [
       {
@@ -74,18 +75,6 @@ export class ServicioService {
     });
     return this.iconoFavorito;
   }
-  
-  botonFavoritosFavoritas() {
-    this.notasFiltradas.forEach( (nota, index) => {
-      if (nota.favorito) {
-        this.iconoFavoritos[index] = "pi-thumbs-up";
-      }
-      else {
-        this.iconoFavoritos[index] = "pi-thumbs-down";
-      }
-    });
-    return this.iconoFavoritos;
-  }
 
   editarNota( i: number ) {
     this.nota = this.notas[i];
@@ -121,5 +110,33 @@ export class ServicioService {
   filtroFavoritos() {
      this.notasFiltradas = this.notas.filter( nota => nota.favorito == true);
   }
+
+  botonFavoritosFavoritas() {
+    this.notasFiltradas.forEach( (nota, index) => {
+      if (nota.favorito) {
+        this.iconoFavoritos[index] = "pi-thumbs-up";
+      }
+      else {
+        this.iconoFavoritos[index] = "pi-thumbs-down";
+      }
+    });
+    return this.iconoFavoritos;
+  }
+
+  quitarFavoritas(i : number) {
+    var pequeños = this.notasFiltradas.filter( nota => nota.titulo == this.notasFiltradas[i].titulo);
+    var titulo = pequeños[0].titulo;
+    this.notas.forEach(element => {
+      if (element.titulo == titulo) {
+        element.favorito = !element.favorito;
+      }
+    });
+    this.botonFavoritosFavoritas();
+    this.router.navigate(["notas"]).then(() => {
+      this.filtroFavoritos();
+      this.router.navigate(["favoritos"])
+    });
+  }
+
 
 }
