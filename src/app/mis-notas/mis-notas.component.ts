@@ -13,7 +13,12 @@ export class MisNotasComponent implements OnInit {
   notas          : Nota[] = [];
   favoritos      : boolean = true;
   modal         !: boolean;
-  nota          !: Nota;
+  nota           : Nota = {
+    titulo: '',
+    contenido: '',
+    fecha: new Date,
+    favorito: false
+  };
   iconoFavorito  : string[] = [];
 
   constructor( private notasService: ServicioService,
@@ -39,8 +44,8 @@ export class MisNotasComponent implements OnInit {
     //this.notasService.nota = this.nota;
     this.notasService.editarNota(index).subscribe( res => {
       this.nota = res;
+      this.modal = true;
     });
-    this.modal = true;
   }
 
   cerrarModal($event: boolean) {

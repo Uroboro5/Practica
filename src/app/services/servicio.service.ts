@@ -56,7 +56,7 @@ export class ServicioService {
 
   guardarNota(titulo: string, contenido: string, favorito: boolean){
     var fecha: Date = new Date();
-    this.notas.unshift( {
+    this.notas.unshift({
       "titulo":titulo,
       "contenido": contenido,
       "fecha":fecha,

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
 import { Nota } from '../interfaces/nota';
 import { ServicioService } from '../services/servicio.service';
 
@@ -7,9 +7,15 @@ import { ServicioService } from '../services/servicio.service';
   templateUrl: './nueva-nota.component.html',
   styleUrls: ['./nueva-nota.component.css']
 })
-export class NuevaNotaComponent implements OnInit {
+export class NuevaNotaComponent implements OnInit, AfterViewInit {
   @Output() modalEvent = new EventEmitter<boolean>();
-  @Input() inputNota !: Nota;
+  @Input() editaNota = false;
+  @Input() inputNota : Nota = {
+    titulo: '',
+    contenido: '',
+    fecha: new Date,
+    favorito: false
+  };
  // @Output() editarNota = new EventEmitter<Nota>();
 
   nuevaNota    !: boolean;
@@ -25,24 +31,28 @@ export class NuevaNotaComponent implements OnInit {
   }
 
   constructor( private notasService: ServicioService) { }
-
+  
   ngOnInit(): void {
     this.nuevaNota = this.notasService.nuevaNota;
-    
-    this.nota = this.inputNota;    
-    /* this.editarNota.subscribe((nota)=>{
-      console.log(nota);
-      
-      //this.titulo =  nota.titulo;
-    }) */
+    this.nota = this.inputNota;
   }
-
+  
+  ngAfterViewInit(): void {
+    this.rellenarDatos();  
+  }
+  
   guardarNota(){
-    this.notasService.guardarNota(this.titulo, this.contenido, this.favorito);
-    this.notasService.botonFavoritos();
-    this.titulo = "";
-    this.contenido = "";
-    this.modalEvent.emit(false);
+    if (this.editaNota) {
+      this.notasService.guardarNota(this.titulo, this.contenido, this.favorito);
+      this.notasService.botonFavoritos();
+      this.titulo = "";
+      this.contenido = "";
+      this.modalEvent.emit(false);
+    }
+    else {
+      //TODO: Editar Nota
+      this.modalEvent.emit(false);
+    }
   }
   
   agregarFavorito() {
@@ -51,10 +61,10 @@ export class NuevaNotaComponent implements OnInit {
   }
 
   rellenarDatos() {
-    console.log(this.nota);
+    console.log(this.inputNota);
     
-    this.titulo = this.nota.titulo;
-    this.contenido = this.nota.contenido;
+    this.titulo = this.inputNota.titulo;
+    this.contenido = this.inputNota.contenido;
   }
 
 }

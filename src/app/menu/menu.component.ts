@@ -12,6 +12,7 @@ export class MenuComponent implements OnInit {
   titulo    : string = "";
   contenido : string = "";
   orden     : boolean = false;
+  editaNota : boolean = false;
 
   constructor( private notasService: ServicioService ) { }
 
