@@ -9,7 +9,7 @@ import { ServicioService } from '../services/servicio.service';
 })
 export class NuevaNotaComponent implements OnInit, AfterViewInit {
   @Output() modalEvent = new EventEmitter<boolean>();
-  @Input() editaNota = false;
+  @Input() editaNota !: boolean;
   @Input() inputNota : Nota = {
     titulo: '',
     contenido: '',
@@ -42,7 +42,9 @@ export class NuevaNotaComponent implements OnInit, AfterViewInit {
   }
   
   guardarNota(){
-    if (this.editaNota) {
+    console.log(this.editaNota);
+    
+    if (!this.editaNota) {
       this.notasService.guardarNota(this.titulo, this.contenido, this.favorito);
       this.notasService.botonFavoritos();
       this.titulo = "";

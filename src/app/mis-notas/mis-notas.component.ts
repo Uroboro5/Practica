@@ -13,13 +13,14 @@ export class MisNotasComponent implements OnInit {
   notas          : Nota[] = [];
   favoritos      : boolean = true;
   modal         !: boolean;
+  iconoFavorito  : string[] = [];
+  editaNota      : boolean = true;
   nota           : Nota = {
     titulo: '',
     contenido: '',
     fecha: new Date,
     favorito: false
   };
-  iconoFavorito  : string[] = [];
 
   constructor( private notasService: ServicioService,
                private swalService: SwalService) { }
