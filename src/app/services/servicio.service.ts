@@ -30,20 +30,21 @@ export class ServicioService {
       {
         "titulo":"Primer Titulo",
         "contenido":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis deserunt ea laudantium asperiores nesciunt amet ex beatae cupiditate quos, porro totam reiciendis. Suscipit nulla aspernatur quia enim reiciendis porro aliquam.",
-        "fecha":this.fecha,
+        "fecha": new Date('2021-12-17T01:30:00'),
         "favorito": true
       },
+      
       {
         "titulo":"Segundo Titulo",
         "contenido":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis deserunt ea laudantium asperiores nesciunt amet ex beatae cupiditate quos, porro totam reiciendis. Suscipit nulla aspernatur quia enim reiciendis porro aliquam.",
-        "fecha":this.fecha,
-        "favorito": false
+        "fecha": new Date('2022-09-13T11:45:00'),
+        "favorito": true
       },
       {
         "titulo":"Tercero Titulo",
         "contenido":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis deserunt ea laudantium asperiores nesciunt amet ex beatae cupiditate quos, porro totam reiciendis. Suscipit nulla aspernatur quia enim reiciendis porro aliquam.",
-        "fecha":this.fecha,
-        "favorito": true
+        "fecha": new Date('2022-06-21T09:15:00'),
+        "favorito": false
       }
     ]
   }
@@ -98,7 +99,7 @@ export class ServicioService {
       this.notas.sort(this.ordenarAbc);      
     }
     else {
-      //this.notas.sort(this.ordenarFecha);
+      this.notas.sort(this.ordenarFecha);
     }
   }
 
@@ -106,11 +107,13 @@ export class ServicioService {
     return x.titulo.localeCompare(y.titulo);
   }
 
-  ordenarFecha(x: Nota, y: Nota){
-    /* console.log(this.notas.sort((a, b) => a.fechas > b.fechas));
-    console.log(this.notas.sort((a, b) => new Date(a.fechas).getTime() > new Date(b.fechas).getTime()));
- */
-    //return x.fecha.toString.prototype.localeCompare(y.fecha.toString);
+  ordenarFecha(x: any, y: any) {
+    var firstDate = new Date(x.fecha),
+      SecondDate = new Date(y.fecha);
+      
+    if (firstDate > SecondDate) return -1;
+    if (firstDate < SecondDate) return 1;
+    return 0;
   }
 
   filtroFavoritos() {
