@@ -96,10 +96,12 @@ export class ServicioService {
 
   ordenarNotas(orden: boolean) {
     if (orden) {
-      this.notas.sort(this.ordenarAbc);      
+      this.notas.sort(this.ordenarAbc);    
+      this.notasFiltradas.sort(this.ordenarAbc)  
     }
     else {
       this.notas.sort(this.ordenarFecha);
+      this.notasFiltradas.sort(this.ordenarFecha);
     }
   }
 
