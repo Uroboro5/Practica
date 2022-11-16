@@ -24,7 +24,7 @@ export class SwalService {
         this.notasService.notas.splice(i,1);
         Swal.fire(
           '¡Eliminado!',
-          'La cita ha sido eliminada',
+          `La nota ${this.notasService.notas[i].titulo} ha sido eliminada`,
           'success'
         )
       }
