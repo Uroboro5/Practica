@@ -11,10 +11,10 @@ export class NuevaNotaComponent implements OnInit, AfterViewInit {
   @Output() modalEvent = new EventEmitter<boolean>();
   @Input() editaNota !: boolean;
   @Input() inputNota : Nota = {
-    titulo: '',
-    contenido: '',
-    fecha: new Date,
-    favorito: false
+    nTitulo: '',
+    nContenido: '',
+    dFecha: new Date,
+    bFavorito: false
   };
  // @Output() editarNota = new EventEmitter<Nota>();
 
@@ -24,10 +24,10 @@ export class NuevaNotaComponent implements OnInit, AfterViewInit {
   favorito      : boolean = false;
   iconoFavorito : string = "pi-thumbs-down";
   nota          : Nota = {
-    titulo: '',
-    contenido: '',
-    fecha: new Date,
-    favorito: false
+    nTitulo: '',
+    nContenido: '',
+    dFecha: new Date,
+    bFavorito: false
   }
 
   constructor( private notasService: ServicioService) { }
@@ -45,8 +45,12 @@ export class NuevaNotaComponent implements OnInit, AfterViewInit {
     console.log(this.editaNota);
     
     if (!this.editaNota) {
-      this.notasService.guardarNota(this.titulo, this.contenido, this.favorito);
-      this.notasService.botonFavoritos();
+      this.notasService.crearNota(this.titulo, this.contenido, this.favorito).subscribe( res => {
+        console.log(res);
+        this.notasService.datosNotas();
+      });
+      /* this.notasService.guardarNota(this.titulo, this.contenido, this.favorito);
+      this.notasService.botonFavoritos(); */
       this.titulo = "";
       this.contenido = "";
       this.modalEvent.emit(false);
@@ -65,8 +69,8 @@ export class NuevaNotaComponent implements OnInit, AfterViewInit {
   rellenarDatos() {
     console.log(this.inputNota);
     
-    this.titulo = this.inputNota.titulo;
-    this.contenido = this.inputNota.contenido;
+    this.titulo = this.inputNota.nTitulo;
+    this.contenido = this.inputNota.nContenido;
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ServicioService } from '../services/servicio.service';
 
 @Component({
@@ -13,12 +14,25 @@ export class MenuComponent implements OnInit {
   contenido : string = "";
   orden     : boolean = false;
   editaNota : boolean = false;
+  iconoFavorito : string = "pi-thumbs-down";
 
-  constructor( private notasService: ServicioService ) { }
+  constructor( private notasService: ServicioService,
+               private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  guardarNota() {
+    this.notasService.crearNota(this.titulo, this.contenido, true).subscribe( res => {
+      this.notasService.notas.push({
+        nTitulo: this.titulo,
+        nContenido: this.contenido,
+        dFecha: new Date,
+        bFavorito: true
+      });
+      this.modal = false;
+    }); 
+  }
   mostrarNuevaNota() {
     this.notasService.nuevaNota = true;
     this.modal=true
@@ -29,14 +43,27 @@ export class MenuComponent implements OnInit {
   }
 
   ordenarNotas() {
-    console.log("ordenar");
-    
     this.notasService.ordenarNotas(this.orden);
   }
 
-  filtrarNotas() {
-    this.notasService.filtroFavoritos();
-    this.notasService.botonFavoritosFavoritas();
+  filtrarNotas( filtrar: boolean) {
+    if (filtrar) {
+      this.notasService.datosNotasFavoritas().subscribe( res => {
+        this.notasService.notas = res;
+        console.log(this.notasService.notas);
+        this.router.navigate(["notas"]).then(() => {
+          this.router.navigate(["favoritos"])
+        });
+      });
+    } else {
+      this.notasService.datosNotas().subscribe( res => {
+        this.notasService.notas = res;
+        console.log(this.notasService.notas);
+        this.router.navigate(["favoritos"]).then(() => {
+          this.router.navigate(["notas"])
+        });
+      });
+    }
   }
   
 }

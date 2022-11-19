@@ -1,7 +1,7 @@
 <p-toolbar>
     <div class="p-toolbar-group-left">
-        <p-button routerLink="notas" label="Mis Notas" class="mr-2" styleClass="p-button-warning"></p-button>
-        <p-button (onClick)="filtrarNotas()" routerLink="favoritos" label="Notas Favoritas" class="mr-5" styleClass="p-button-help"></p-button>
+        <p-button (onClick)="filtrarNotas(false)" routerLink="notas" label="Mis Notas" class="mr-2" styleClass="p-button-warning"></p-button>
+        <p-button (onClick)="filtrarNotas(true)" routerLink="favoritos" label="Notas Favoritas" class="mr-5" styleClass="p-button-help"></p-button>
         
         <h5>Fecha</h5>  <p-inputSwitch [(ngModel)]="orden" (onChange)="ordenarNotas()"></p-inputSwitch> <h5>ABC</h5>
     </div>
@@ -13,7 +13,15 @@
 
 <p-dialog header="Nueva Nota" [(visible)]="modal" [modal]="true" [style]="{width: '30vw'}"
     [draggable]="false" [resizable]="false">
-    <app-nueva-nota [editaNota]="editaNota" (modalEvent)="cerrarModal($event)">
-
-    </app-nueva-nota>
+    <span class="p-float-label mt-2">
+        <input id="float-input" type="text" pInputText [(ngModel)]="titulo"> 
+        <label for="float-input">Titulo </label>
+    </span>
+    <span class="p-float-label mt-2">
+        <textarea id="float-input" rows="5" cols="30" pInputTextarea [(ngModel)]="contenido"></textarea>
+        <label for="float-input">Contenido</label>
+    </span>
+    <button (click)="guardarNota()" pButton pRipple type="button" label="Guardar" class="p-button-rounded p-button-success mt-2 ml-8"></button>
+    <button pButton pRipple type="button" icon="pi {{iconoFavorito}}" class="p-button-rounded p-button-primary ml-8"></button>
+    
 </p-dialog>

@@ -9,7 +9,7 @@ export class SwalService {
 
   constructor( private notasService: ServicioService) { }
 
-  confirmarBorrado(i: number) {
+  confirmarBorrado(id: number, titulo: string) {
     Swal.fire({
       title: '¿Estás seguro?',
       text: "Se borrará la nota",
@@ -18,13 +18,14 @@ export class SwalService {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'      
+      cancelButtonText: 'Cancelar'       
     }).then((result) => {
       if (result.isConfirmed) {
-        this.notasService.notas.splice(i,1);
+        this.notasService.eliminarNota(id).subscribe( res => console.log(res));
+        //this.notasService.notas.splice(id,1);
         Swal.fire(
           '¡Eliminado!',
-          `La nota ${this.notasService.notas[i].titulo} ha sido eliminada`,
+          `La nota ${titulo} ha sido eliminada`,
           'success'
         )
       }
